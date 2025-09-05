@@ -1,0 +1,1920 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpastiVidad EM PRO - Evaluación y Manejo de la Espasticidad</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .disclaimer {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            display: none;
+        }
+
+        .disclaimer.active {
+            display: block;
+        }
+
+        .disclaimer h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .disclaimer button {
+            background: #ffc107;
+            color: #333;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+
+        .disclaimer button:hover {
+            background: #e0a800;
+        }
+
+        .main-content {
+            display: none;
+        }
+
+        .main-content.active {
+            display: block;
+        }
+
+        .nav-tabs {
+            background: white;
+            border-radius: 12px;
+            padding: 10px;
+            margin-bottom: 25px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .nav-tab {
+            flex: 1;
+            min-width: 140px;
+            padding: 12px 10px;
+            border: 2px solid #e0e0e0;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+            font-weight: 500;
+            font-size: 0.9em;
+        }
+
+        .nav-tab:hover {
+            background: #f8f9fa;
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+        }
+
+        .content-section {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .evaluation-grid {
+            display: grid;
+            gap: 25px;
+        }
+
+        .eval-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid #667eea;
+        }
+
+        .eval-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .slider-container {
+            position: relative;
+            margin: 20px 0;
+        }
+
+        .slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: #e0e0e0;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+        }
+
+        .slider-value {
+            text-align: center;
+            font-size: 1.5em;
+            color: #667eea;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .radio-option input[type="radio"] {
+            width: auto;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #333;
+            border: 2px solid #e0e0e0;
+        }
+
+        .btn-secondary:hover {
+            background: #e9ecef;
+        }
+
+        .exercise-category {
+            margin-bottom: 30px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .exercise-category h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .exercise-item {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 3px solid #764ba2;
+        }
+
+        .exercise-item h4 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .exercise-visual {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin: 20px 0;
+            padding: 20px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .exercise-animation {
+            flex: 0 0 200px;
+            height: 200px;
+            background: #f0f4ff;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .exercise-description {
+            flex: 1;
+        }
+
+        .exercise-steps {
+            background: #e8f5e9;
+            border-left: 3px solid #4caf50;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        .exercise-steps ol {
+            margin-left: 20px;
+        }
+
+        .exercise-steps li {
+            margin: 5px 0;
+        }
+
+        .figure-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .human-figure {
+            fill: #667eea;
+            stroke: #333;
+            stroke-width: 2;
+        }
+
+        .movement-arrow {
+            stroke: #ff6b6b;
+            stroke-width: 3;
+            fill: none;
+            marker-end: url(#arrowhead);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes rotate-neck {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(30deg); }
+        }
+
+        @keyframes flex-knee {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(-45deg); }
+        }
+
+        @keyframes stretch-arm {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(30px); }
+        }
+
+        .reference {
+            background: #e8f5e9;
+            border-left: 3px solid #4caf50;
+            padding: 10px 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            font-size: 0.9em;
+            color: #2e7d32;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            overflow-x: auto;
+            display: block;
+        }
+
+        .history-table th,
+        .history-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+            white-space: nowrap;
+        }
+
+        .history-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #667eea;
+            position: sticky;
+            top: 0;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            margin-top: 20px;
+        }
+
+        .report-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+
+        .report-section h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .print-button {
+            background: #28a745;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 20px;
+            margin-right: 10px;
+        }
+
+        .print-button:hover {
+            background: #218838;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .nav-tabs, .btn, .print-button {
+                display: none;
+            }
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .warning-box {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .definition-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .definition-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .symptom-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .symptom-card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .symptom-card h4 {
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>SpastiVidad EM PRO</h1>
+            <p>Sistema Integral de Evaluación y Manejo de la Espasticidad en Esclerosis Múltiple</p>
+            <p style="font-size: 0.9em; color: #999; margin-top: 10px;">
+                Ideada por José López S. del Rosal<br>
+                Licenciado en Farmacia y Grado en Fisioterapia
+            </p>
+        </div>
+
+        <div class="disclaimer active" id="disclaimer">
+            <h3>⚠️ Aviso Importante</h3>
+            <p>Esta aplicación es una herramienta de apoyo exclusivamente para <strong>profesionales médicos</strong> en la evaluación y manejo de la espasticidad en Esclerosis Múltiple. No sustituye el juicio clínico profesional.</p>
+            <p><strong>Uso restringido a profesionales sanitarios cualificados.</strong></p>
+            <button onclick="acceptDisclaimer()">Entiendo y Acepto</button>
+        </div>
+
+        <div class="main-content" id="mainContent">
+            <div class="nav-tabs">
+                <div class="nav-tab active" onclick="showSection('info')">📚 Información</div>
+                <div class="nav-tab" onclick="showSection('evaluation')">📊 Evaluación de la Espasticidad</div>
+                <div class="nav-tab" onclick="showSection('energy')">⚡ Gasto Energético Asociado</div>
+                <div class="nav-tab" onclick="showSection('quality')">💝 Calidad de Vida</div>
+                <div class="nav-tab" onclick="showSection('exercises')">🏃 Ejercicios</div>
+                <div class="nav-tab" onclick="showSection('history')">📈 Evolución</div>
+                <div class="nav-tab" onclick="showSection('report')">📄 Informe</div>
+            </div>
+
+            <!-- Nueva Sección de Información sobre Espasticidad -->
+            <div class="content-section active" id="info">
+                <h2>Espasticidad en la Esclerosis Múltiple</h2>
+                
+                <div class="definition-card">
+                    <h3>¿Qué es la Espasticidad?</h3>
+                    <p>La espasticidad es un síntoma común en la esclerosis múltiple (EM), caracterizado por un <strong>aumento del tono muscular (hipertonía)</strong> que provoca rigidez y contracciones involuntarias. Se origina por el daño en la mielina y las vías nerviosas, alterando la transmisión de señales entre el cerebro, la médula espinal y los músculos.<sup>1-5</sup></p>
+                    <div class="info-box" style="margin-top: 15px;">
+                        <strong>📊 Prevalencia:</strong> Afecta entre el 60% y el 90% de los pacientes con EM en algún momento de su enfermedad.<sup>2,5,6</sup>
+                    </div>
+                </div>
+
+                <div class="eval-card">
+                    <h3>Especificidades en la EM</h3>
+                    <p>En el contexto de la EM, la espasticidad presenta características particulares:<sup>1,7</sup></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>Origen multifocal:</strong> A diferencia de lesiones medulares aisladas, en la EM el daño es generalizado en el SNC<sup>1,7</sup></li>
+                        <li><strong>Evolución en brotes:</strong> Inicialmente aparece en episodios de más de 24 horas con recuperación variable<sup>1</sup></li>
+                        <li><strong>Cronificación:</strong> Con el tiempo se vuelve permanente, con rigidez continua y espasmos intermitentes<sup>1,8</sup></li>
+                        <li><strong>Factores agravantes:</strong> Edad avanzada, sexo masculino y duración prolongada de la enfermedad<sup>5</sup></li>
+                        <li><strong>Debilidad coexistente:</strong> La rigidez puede compensar parcialmente la pérdida de fuerza pero complica movimientos precisos<sup>2,7</sup></li>
+                    </ul>
+                </div>
+
+                <h3 style="margin-top: 30px; color: #667eea;">Síntomas Asociados</h3>
+                <div class="symptom-grid">
+                    <div class="symptom-card">
+                        <h4>💪 Musculares<sup>1,2</sup></h4>
+                        <ul style="margin-left: 20px; font-size: 0.95em;">
+                            <li>Rigidez muscular</li>
+                            <li>Espasmos involuntarios</li>
+                            <li>Movimientos flexores/extensores</li>
+                            <li>Clonus (contracciones repetitivas)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="symptom-card">
+                        <h4>😣 Dolor y Fatiga<sup>2,5,6</sup></h4>
+                        <ul style="margin-left: 20px; font-size: 0.95em;">
+                            <li>Tensión muscular</li>
+                            <li>Calambres severos</li>
+                            <li>Dolor articular</li>
+                            <li>Cansancio aumentado</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="symptom-card">
+                        <h4>🚶 Alteraciones Motoras<sup>1,3,10</sup></h4>
+                        <ul style="margin-left: 20px; font-size: 0.95em;">
+                            <li>Dificultad para caminar</li>
+                            <li>Posturas anormales</li>
+                            <li>Tijereteo de piernas</li>
+                            <li>Reducción del rango de movimiento</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="symptom-card">
+                        <h4>🏥 Otros Síntomas<sup>1,6</sup></h4>
+                        <ul style="margin-left: 20px; font-size: 0.95em;">
+                            <li>Problemas vesicales/intestinales</li>
+                            <li>Trastornos del sueño</li>
+                            <li>Disfagia y disartria</li>
+                            <li>Disfunción sexual</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="warning-box" style="margin-top: 20px;">
+                    <strong>⚠️ Importante:</strong> Los síntomas son interdependientes. Por ejemplo, el dolor incrementa la espasticidad, creando un ciclo vicioso que debe ser abordado de forma integral.<sup>6</sup>
+                </div>
+
+                <!-- Referencias -->
+                <div class="reference" style="margin-top: 30px;">
+                    <h4>📚 Referencias Bibliográficas</h4>
+                    <ol style="font-size: 0.85em; margin-left: 20px; margin-top: 10px;">
+                        <li>Qué es la espasticidad: Síntomas, causas y tratamiento. Vivir con EM. Disponible en: vivirconem.com</li>
+                        <li>Espasmos musculares en la esclerosis múltiple. Fundación Esclerosis Múltiple. fem.es</li>
+                        <li>Espasticidad y esclerosis múltiple. Sociedad Nacional de EM. nationalmssociety.org</li>
+                        <li>La espasticidad y la esclerosis múltiple: cómo controlar los músculos. WebMD. webmd.com</li>
+                        <li>¿Cómo gestionar la espasticidad en la esclerosis múltiple? FEM. fem.es</li>
+                        <li>Espasticidad un problema médico muy frecuente en pacientes con EM. EM Albacete. emalbacete.es</li>
+                        <li>Fisioterapia de la espasticidad: técnicas y métodos. Atención Primaria. Elsevier. 2004</li>
+                        <li>Espasticidad en la esclerosis múltiple. Neurología Almirall. neurologia.almirallmed.es</li>
+                        <li>Medición de la espasticidad. Atención Primaria Almirall. atencionprimaria.almirallmed.es</li>
+                        <li>Espasticidad. MedlinePlus enciclopedia médica. medlineplus.gov</li>
+                        <li>Hobart JC et al. Getting the measure of spasticity in MS: the MS Spasticity Scale (MSSS-88). Neurology. 2006;67(6):1094-1100</li>
+                        <li>MacGregor J. The evaluation of patient performance using long-term ambulatory monitoring technique in the management of spasticity. Physiotherapy. 1979;65(2):48-51</li>
+                        <li>Granger CV et al. Advances in functional assessment for medical rehabilitation. Arch Phys Med Rehabil. 1979;60(4):145-154</li>
+                        <li>Dallmeijer AJ et al. Long-term clinical evaluation of muscle tone in patients with multiple sclerosis. Mult Scler. 2007;13(7):932-940</li>
+                        <li>Buysse DJ et al. The Pittsburgh Sleep Quality Index: a new instrument for psychiatric practice and research. Psychiatry Res. 1989;28(2):193-213</li>
+                        <li>Brass SD et al. Sleep disorders in patients with multiple sclerosis. Sleep Med. 2010;11(3):235-240</li>
+                        <li>Farrar JT et al. Clinical importance of changes in chronic pain intensity measured on an 11-point numerical pain rating scale. Pain. 2001;94(2):149-158</li>
+                        <li>Anwar K, Barnes MP. A pilot study of a comparison between a patient scored numeric rating scale and clinician scored measures of spasticity in multiple sclerosis. Clin Rehabil. 2009;23(9):824-834</li>
+                        <li>Bohannon RW, Smith MB. Interrater reliability of a modified Ashworth scale of muscle spasticity. Phys Ther. 1987;67(2):206-207</li>
+                        <li>Pandyan AD et al. A review of the properties and limitations of the Ashworth and modified Ashworth Scales as measures of spasticity. Age Ageing. 1999;28(1):55-58</li>
+                        <li>Penn RD et al. Intrathecal baclofen for severe spinal spasticity. Neurosurgery. 1989;25(2):196-201</li>
+                        <li>Priebe MM et al. Clinical assessment of spasticity in spinal cord injury: a multidimensional problem. Arch Phys Med Rehabil. 1996;77(12):1224-1230</li>
+                        <li>Podsiadlo D, Richardson S. The timed "Up & Go": a test of basic functional mobility for frail elderly persons. J Am Geriatr Soc. 1991;39(2):142-148</li>
+                        <li>Sebastião E et al. Validity of the Timed Up and Go Test as a measure of functional mobility in persons with multiple sclerosis. Arch Phys Med Rehabil. 2016;97(7):1154-1160</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Sección de Evaluación -->
+            <div class="content-section" id="evaluation">
+                <h2>Evaluación de la Espasticidad</h2>
+                
+                <div class="evaluation-grid">
+                    <!-- NRS de Espasticidad -->
+                    <div class="eval-card">
+                        <h3>Escala Numérica NRS de Espasticidad</h3>
+                        <div class="reference">
+                            📚 Farrar JT et al. Pain. 2001;94(2):149-158
+                            <br>Validado en EM: Anwar K, Barnes MP. Clin Rehabil. 2009;23(9):824-834
+                        </div>
+                        <p>Evalúe el impacto de la espasticidad percibido por el paciente en las últimas 24 horas:</p>
+                        <div class="slider-container">
+                            <input type="range" min="0" max="10" value="5" class="slider" id="nrsScore" oninput="updateNRS()">
+                            <div class="slider-value" id="nrsValue">5</div>
+                        </div>
+                        <p style="text-align: center; margin-top: 10px;">
+                            <span style="float: left;">0 = Sin espasticidad</span>
+                            <span style="float: right;">10 = Máxima espasticidad</span>
+                        </p>
+                        <div class="info-box" style="margin-top: 40px;">
+                            ℹ️ Una reducción ≥30% se considera clínicamente relevante
+                        </div>
+                    </div>
+
+                    <!-- Escala de Ashworth Modificada -->
+                    <div class="eval-card">
+                        <h3>Escala de Ashworth Modificada</h3>
+                        <div class="reference">
+                            📚 Bohannon RW, Smith MB. Phys Ther. 1987;67(2):206-207
+                            <br>Validación: Pandyan AD et al. Age Ageing. 1999;28(1):55-58
+                        </div>
+                        <div class="form-group">
+                            <label>Seleccione el grado de espasticidad:</label>
+                            <select id="ashworth">
+                                <option value="0">0 - Sin aumento del tono muscular</option>
+                                <option value="1">1 - Ligero aumento del tono con resistencia mínima al final del ROM</option>
+                                <option value="1+">1+ - Ligero aumento del tono con resistencia en menos de la mitad del ROM</option>
+                                <option value="2">2 - Aumento marcado del tono durante la mayor parte del ROM</option>
+                                <option value="3">3 - Aumento considerable del tono, movimiento pasivo difícil</option>
+                                <option value="4">4 - Parte afectada rígida en flexión o extensión</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Registro de Espasmos -->
+                    <div class="eval-card">
+                        <h3>Registro de Espasmos - Penn Spasm Frequency Scale</h3>
+                        <div class="reference">
+                            📚 Penn RD et al. Neurosurgery. 1989;25(2):196-201
+                            <br>Adaptado para EM: Priebe MM et al. Arch Phys Med Rehabil. 1996;77(12):1224-1230
+                        </div>
+                        <div class="form-group">
+                            <label>Frecuencia de espasmos (últimas 24 horas):</label>
+                            <select id="spasmsFreq">
+                                <option value="0">Sin espasmos</option>
+                                <option value="1">Espasmos leves (1-5 al día)</option>
+                                <option value="2">Espasmos moderados (6-10 al día)</option>
+                                <option value="3">Espasmos frecuentes (>10 al día)</option>
+                                <option value="4">Espasmos continuos</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Intensidad de los espasmos:</label>
+                            <select id="spasmsIntensity">
+                                <option value="0">Sin espasmos</option>
+                                <option value="1">Leve</option>
+                                <option value="2">Moderada</option>
+                                <option value="3">Severa</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Test Timed Up and Go -->
+                    <div class="eval-card">
+                        <h3>Test Timed Up and Go (TUG)</h3>
+                        <div class="reference">
+                            📚 Podsiadlo D, Richardson S. J Am Geriatr Soc. 1991;39(2):142-148
+                            <br>Validado en EM: Sebastião E et al. Arch Phys Med Rehabil. 2016;97(7):1154-1160
+                        </div>
+                        <p>Tiempo en segundos para levantarse de una silla, caminar 3 metros, girar, volver y sentarse:</p>
+                        <div class="form-group">
+                            <label>Tiempo (segundos):</label>
+                            <input type="number" id="tugTime" placeholder="Ej: 12.5" step="0.1">
+                        </div>
+                        <div class="info-box">
+                            <strong>Valores de referencia:</strong><br>
+                            • &lt;10 seg: Normal<br>
+                            • 10-20 seg: Riesgo bajo de caídas<br>
+                            • 20-30 seg: Riesgo moderado<br>
+                            • &gt;30 seg: Riesgo alto
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" onclick="saveEvaluation()" style="margin-top: 20px;">💾 Guardar Evaluación</button>
+            </div>
+
+            <!-- Sección de Gasto Energético -->
+            <div class="content-section" id="energy">
+                <h2>Evaluación del Gasto Energético</h2>
+                
+                <div class="eval-card">
+                    <h3>Índice de Coste Fisiológico (PCI)</h3>
+                    <div class="reference">
+                        📚 MacGregor J. Physiotherapy. 1979;65(2):48-51
+                    </div>
+                    
+                    <div class="info-box">
+                        <strong>¿Cómo se realiza?</strong><br>
+                        1. Medir FC en reposo (sentado 5 minutos)<br>
+                        2. Realizar el test TUG<br>
+                        3. Medir FC inmediatamente al finalizar<br>
+                        4. Calcular: PCI = (FC final - FC reposo) / velocidad de marcha
+                    </div>
+
+                    <div class="form-group">
+                        <label>Frecuencia Cardíaca en Reposo (lpm):</label>
+                        <input type="number" id="hrRest" placeholder="Ej: 70">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Frecuencia Cardíaca Post-TUG (lpm):</label>
+                        <input type="number" id="hrPost" placeholder="Ej: 95">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Distancia recorrida (metros):</label>
+                        <input type="number" id="distance" value="6" placeholder="Estándar: 6m">
+                    </div>
+
+                    <button class="btn btn-primary" onclick="calculatePCI()">📊 Calcular PCI</button>
+
+                    <div id="pciResult" style="margin-top: 20px; display: none;">
+                        <div class="eval-card" style="background: #e8f5e9;">
+                            <h4>Resultado del PCI</h4>
+                            <p id="pciValue" style="font-size: 1.5em; color: #2e7d32; font-weight: bold;"></p>
+                            <p id="pciInterpretation"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección de Calidad de Vida -->
+            <div class="content-section" id="quality">
+                <h2>Evaluación de Calidad de Vida</h2>
+
+                <div class="evaluation-grid">
+                    <!-- NRS de Impacto Percibido -->
+                    <div class="eval-card">
+                        <h3>NRS - Impacto de la Espasticidad Percibido por el Paciente</h3>
+                        <div class="reference">
+                            📚 Hobart JC et al. Neurology. 2006;67(6):1094-1100
+                        </div>
+                        <p>¿Cuánto afecta la espasticidad a su vida diaria?</p>
+                        <div class="slider-container">
+                            <input type="range" min="0" max="10" value="5" class="slider" id="impactScore" oninput="updateImpact()">
+                            <div class="slider-value" id="impactValue">5</div>
+                        </div>
+                        <p style="text-align: center; margin-top: 10px;">
+                            <span style="float: left;">0 = Sin impacto</span>
+                            <span style="float: right;">10 = Máximo impacto</span>
+                        </p>
+                        <div class="info-box" style="margin-top: 40px;">
+                            ℹ️ Esta puntuación complementa la NRS de espasticidad evaluada anteriormente
+                        </div>
+                    </div>
+
+                    <!-- Actividades de la Vida Diaria -->
+                    <div class="eval-card">
+                        <h3>Actividades de la Vida Diaria - Índice de Barthel Modificado para EM</h3>
+                        <div class="reference">
+                            📚 Granger CV et al. Arch Phys Med Rehabil. 1979;60(4):145-154
+                            <br>Validado en EM: Dallmeijer AJ et al. Mult Scler. 2007;13(7):932-940
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Movilidad/Deambulación:</label>
+                            <select id="avdMobility" onchange="calculateAVDScore()">
+                                <option value="0">Independiente (>50m)</option>
+                                <option value="5">Con ayuda técnica</option>
+                                <option value="10">Con supervisión</option>
+                                <option value="15">Con ayuda de una persona</option>
+                                <option value="20">Silla de ruedas independiente</option>
+                                <option value="25">Dependiente total</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Transferencias:</label>
+                            <select id="avdTransfers" onchange="calculateAVDScore()">
+                                <option value="0">Independiente</option>
+                                <option value="5">Mínima ayuda</option>
+                                <option value="10">Ayuda moderada</option>
+                                <option value="15">Dependiente</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Aseo personal:</label>
+                            <select id="avdToilet" onchange="calculateAVDScore()">
+                                <option value="0">Independiente</option>
+                                <option value="5">Con ayuda</option>
+                                <option value="10">Dependiente</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Vestido:</label>
+                            <select id="avdDressing" onchange="calculateAVDScore()">
+                                <option value="0">Independiente</option>
+                                <option value="5">Con ayuda</option>
+                                <option value="10">Dependiente</option>
+                            </select>
+                        </div>
+
+                        <div class="info-box" style="background: #e8f5e9; border-left-color: #4caf50;">
+                            <strong>Puntuación AVD Total: <span id="avdTotal">0</span> / 60</strong>
+                            <br>Interpretación:
+                            <br>• 0-15: Independencia funcional
+                            <br>• 16-35: Dependencia leve-moderada
+                            <br>• 36-60: Dependencia severa
+                        </div>
+                    </div>
+
+                    <!-- Escala de Calidad del Sueño -->
+                    <div class="eval-card">
+                        <h3>Calidad del Sueño (PSQI simplificado para EM)</h3>
+                        <div class="reference">
+                            📚 Buysse DJ et al. Psychiatry Res. 1989;28(2):193-213<br>
+                            Validado en EM: Brass SD et al. Sleep Med. 2010;11(3):235-240
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>¿Cómo calificaría su calidad de sueño en general?</label>
+                            <select id="sleepQuality" onchange="calculateSleepScore()">
+                                <option value="0">Muy buena</option>
+                                <option value="1">Bastante buena</option>
+                                <option value="2">Bastante mala</option>
+                                <option value="3">Muy mala</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>¿Cuántas veces se despertó por espasmos/dolor en la última semana?</label>
+                            <select id="sleepDisturbance" onchange="calculateSleepScore()">
+                                <option value="0">Ninguna</option>
+                                <option value="1">Menos de 1 vez/semana</option>
+                                <option value="2">1-2 veces/semana</option>
+                                <option value="3">3 o más veces/semana</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tiempo para conciliar el sueño (minutos):</label>
+                            <select id="sleepLatency" onchange="calculateSleepScore()">
+                                <option value="0">≤15 minutos</option>
+                                <option value="1">16-30 minutos</option>
+                                <option value="2">31-60 minutos</option>
+                                <option value="3">>60 minutos</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Horas de sueño efectivo por noche:</label>
+                            <input type="number" id="sleepHours" placeholder="Ej: 6.5" step="0.5" min="0" max="24" onchange="calculateSleepScore()">
+                        </div>
+
+                        <div class="info-box" style="background: #e3f2fd; border-left-color: #2196f3;">
+                            <strong>Puntuación PSQI: <span id="sleepTotal">0</span> / 12</strong>
+                            <br>Interpretación:
+                            <br>• 0-4: Buena calidad del sueño
+                            <br>• 5-8: Calidad del sueño moderada
+                            <br>• >8: Mala calidad del sueño
+                        </div>
+                    </div>
+
+                    <!-- Escala de Dolor -->
+                    <div class="eval-card">
+                        <h3>Escala Visual Analógica (EVA) de Dolor</h3>
+                        <p>Intensidad del dolor relacionado con la espasticidad:</p>
+                        <div class="slider-container">
+                            <input type="range" min="0" max="10" value="5" class="slider" id="painScore" oninput="updatePain()">
+                            <div class="slider-value" id="painValue">5</div>
+                        </div>
+                        <p style="text-align: center; margin-top: 10px;">
+                            <span style="float: left;">0 = Sin dolor</span>
+                            <span style="float: right;">10 = Máximo dolor</span>
+                        </p>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" onclick="saveQualityOfLife()" style="margin-top: 20px;">💾 Guardar Evaluación</button>
+            </div>
+
+            <!-- Sección de Ejercicios Mejorada -->
+            <div class="content-section" id="exercises">
+                <h2>Guía Visual de Ejercicios para Espasticidad en EM</h2>
+                <div class="reference">
+                    📚 Guía de ejercicios Almirall - Esclerosis Múltiple España (EME)
+                </div>
+
+                <!-- Recomendaciones Generales -->
+                <div class="exercise-category">
+                    <h3>📌 Recomendaciones Generales</h3>
+                    
+                    <div class="exercise-visual">
+                        <div class="exercise-animation" style="background: linear-gradient(135deg, #e3f2fd, #bbdefb);">
+                            <svg width="180" height="180" viewBox="0 0 180 180">
+                                <defs>
+                                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                        <polygon points="0 0, 10 3.5, 0 7" fill="#ff6b6b"/>
+                                    </marker>
+                                </defs>
+                                <!-- Representación de aplicación de frío -->
+                                <rect x="50" y="50" width="80" height="80" rx="10" fill="#2196f3" opacity="0.3"/>
+                                <circle cx="70" cy="70" r="5" fill="#fff" opacity="0.8">
+                                    <animate attributeName="cy" values="70;110;70" dur="3s" repeatCount="indefinite"/>
+                                </circle>
+                                <circle cx="90" cy="90" r="4" fill="#fff" opacity="0.7">
+                                    <animate attributeName="cy" values="90;110;90" dur="2.5s" repeatCount="indefinite"/>
+                                </circle>
+                                <circle cx="110" cy="80" r="6" fill="#fff" opacity="0.9">
+                                    <animate attributeName="cy" values="80;110;80" dur="3.5s" repeatCount="indefinite"/>
+                                </circle>
+                                <text x="90" y="160" text-anchor="middle" font-size="14" fill="#333">Crioterapia</text>
+                            </svg>
+                        </div>
+                        <div class="exercise-description">
+                            <h4>Crioterapia Local</h4>
+                            <p>Aplicación de frío para reducir temporalmente el tono muscular</p>
+                            <div class="exercise-steps">
+                                <ol>
+                                    <li>Aplicar bolsa de hielo envuelta en toalla</li>
+                                    <li>Mantener 15-20 minutos sobre el músculo espástico</li>
+                                    <li>Permite 20-30 minutos de mejoría para realizar estiramientos</li>
+                                    <li>Evitar aplicación directa sobre la piel</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ejercicios de Cuello -->
+                <div class="exercise-category">
+                    <h3>🦴 Ejercicios de Cuello</h3>
+                    
+                    <div class="exercise-visual">
+                        <div class="exercise-animation">
+                            <svg width="180" height="180" viewBox="0 0 180 180">
+                                <!-- Cabeza y cuello simplificados -->
+                                <ellipse cx="90" cy="60" rx="35" ry="40" fill="#667eea" opacity="0.3"/>
+                                <rect x="75" y="80" width="30" height="40" fill="#667eea" opacity="0.3"/>
+                                <!-- Flecha de rotación -->
+                                <path d="M 50 60 Q 90 30, 130 60" class="movement-arrow" stroke-dasharray="5,5">
+                                    <animateTransform attributeName="transform" type="rotate" 
+                                        values="0 90 60;30 90 60;0 90 60;-30 90 60;0 90 60" 
+                                        dur="4s" repeatCount="indefinite"/>
+                                </path>
+                                <text x="90" y="160" text-anchor="middle" font-size="12" fill="#333">Rotación lateral</text>
+                            </svg>
+                        </div>
+                        <div class="exercise-description">
+                            <h4>Rotación de Cuello</h4>
+                            <p>Estiramiento suave para reducir la tensión cervical</p>
+                            <div class="exercise-steps">
+                                <ol>
+                                    <li>Girar lentamente la cabeza hacia un lado</li>
+                                    <li>Mantener 30 segundos sin dolor</li>
+                                    <li>Volver al centro lentamente</li>
+                                    <li>Repetir hacia el otro lado</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-visual">
+                        <div class="exercise-animation">
+                            <svg width="180" height="180" viewBox="0 0 180 180">
+                                <!-- Cabeza inclinándose -->
+                                <ellipse cx="90" cy="60" rx="35" ry="40" fill="#667eea" opacity="0.3">
+                                    <animateTransform attributeName="transform" type="rotate" 
+                                        values="0 90 100;-20 90 100;0 90 100;20 90 100;0 90 100" 
+                                        dur="4s" repeatCount="indefinite"/>
+                                </ellipse>
+                                <rect x="75" y="80" width="30" height="40" fill="#667eea" opacity="0.3"/>
+                                <text x="90" y="160" text-anchor="middle" font-size="12" fill="#333">Flexión lateral</text>
+                            </svg>
+                        </div>
+                        <div class="exercise-description">
+                            <h4>Flexión Lateral</h4>
+                            <p>Estiramiento de los músculos laterales del cuello</p>
+                            <div class="exercise-steps">
+                                <ol>
+                                    <li>Inclinar la cabeza llevando oreja hacia hombro</li>
+                                    <li>Mantener el hombro contrario relajado y bajo</li>
+                                    <li>Sostener 30 segundos</li>
+                                    <li>Realizar 3 repeticiones por lado</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ejercicios de Tronco -->
+                <div class="exercise-category">
+                    <h3>🧘 Ejercicios de Tronco</h3>
+                    
+                    <div class="exercise-visual">
+                        <div class="exercise-animation">
+                            <svg width="180" height="180" viewBox="0 0 180 180">
+                                <!-- Tronco y rotación -->
+                                <rect x="70" y="40" width="40" height="60" fill="#667eea" opacity="0.3">
+                                    <animateTransform attributeName="transform" type="rotate" 
+                                        values="0 90 70;-20 90 70;0 90 70;20 90 70;0 90 70" 
+                                        dur="4s" repeatCount="indefinite"/>
+                                </rect>
+                                <!-- Piernas -->
+                                <rect x="75" y="100" width="15" height="40" fill="#667eea" opacity="0.3"/>
+                                <rect x="90" y="100" width="15" height="40" fill="#667eea" opacity="0.3"/>
+                                <text x="90" y="160" text-anchor="middle" font-size="12" fill="#333">Rotación de tronco</text>
+                            </svg>
+                        </div>
+                        <div class="exercise-description">
+                            <h4>Rotación de Tronco</h4>
+                            <p>Mejora la flexibilidad de la columna</p>
+                            <div class="exercise-steps">
+                                <ol>
+                                    <li>Sentado con piernas cruzadas</li>
+                                    <li>Girar el tronco hacia un lado</li>
+                                    <li>Apoyar la mano contraria en la rodilla</li>
+                                    <li>Mantener 30 segundos y cambiar</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-visual">
+                        <div class="exercise-animation">
+                            <svg width="180" height="180" viewBox="0 0 180 180">
+                                <!-- Estiramiento gato-vaca -->
+                                <path d="M 30 90 Q 90 60, 150 90" fill="none" stroke="#667eea" stroke-width="6" opacity="0.5">
+                                    <animate attributeName="d" 
+                                        values="M 30 90 Q 90 60, 150 90;M 30 90 Q 90 120, 150 90;M 30 90 Q 90 60, 150 90" 
+                                        dur="3s" repeatCount="indefinite"/>
+                                </path>
+                                <circle cx="30" cy="90" r="8" fill="#667eea" opacity="0.5"/>
+                                <circle cx="150" cy="90" r="8" fill="#667eea" opacity="0.5"/>
+                                <text x="90" y="160" text-anchor="middle" font-size="12" fill="#333">Estiramiento gato-vaca</text>
+                            </svg>
+                        </div>
+                        <div class="exercise-description">
+                            <h4>Movilización Espinal</h4>
+                            <p>Flexibilización de toda la columna</p>
+                            <div class="exercise-steps">
+                                <ol>
+                                    <li>En cuadrupedia (4 patas)</li>
+                                    <li>Arquear la espalda hacia arriba (gato)</li>
+                                    <li>Luego hundir la espalda (vaca)</li>
+                                    <li>Movimientos lentos y controlados</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ejercicios de Piernas -->
+                <div class="exercise-category">
+                    <h3>🦵 Ejercicios de Piernas</h3>
+                    
+                    <div class="exercise-visual">
+                        <div class="exercise-animation">
+                            <svg width="180" height="180" viewBox="0 0 180 180">
+                                <!-- Pierna flexionándose -->
+                                <line x1="90" y1="40" x2="90" y2="90" stroke="#667eea" stroke-width="8" opacity="0.5"/>
+                                <line x1="90" y1="90" x2="90" y2="140" stroke="#667eea" stroke-width="8" opacity="0.5">
+                                    <animateTransform attributeName="transform" type="rotate" 
+                                        values="0 90 90;-60 90 90;0 90 90" 
+                                        dur="3s" repeatCount="indefinite"/>
+                                </line>
+                                <!-- Flecha indicando movimiento -->
+                                <path d="M 120 120 Q 110 100, 90 90" class="movement-arrow"/>
+                                <text x="90" y="170" text-anchor="middle" font-size="12" fill="#333">Flexión de rodilla</text>
+                            </svg>
+                        </div>
+                        <div class="exercise-description">
+                            <h4>Flexión de Rodilla</h4>
+                            <p>Estiramiento de isquiotibiales</p>
+                            <div class="exercise-steps">
+                                <ol>
+                                    <li>Tumbado boca arriba, flexionar una rodilla</li>
+                                    <li>Llevar la rodilla hacia el pecho suavemente</li>
+                                    <li>Mantener 30 segundos</li>
+                                    <li>La otra pierna permanece estirada</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-visual">
+                        <div class="exercise-animation">
+                            <svg width="180" height="180" viewBox="0 0 180 180">
+                                <!-- Representación de estiramiento de gemelos -->
+                                <line x1="60" y1="120" x2="90" y2="90" stroke="#667eea" stroke-width="8" opacity="0.5"/>
+                                <line x1="90" y1="90" x2="120" y2="120" stroke="#667eea" stroke-width="8" opacity="0.5"/>
+                                <!-- Pie flexionándose -->
+                                <rect x="50" y="115" width="20" height="10" fill="#667eea" opacity="0.5">
+                                    <animateTransform attributeName="transform" type="rotate" 
+                                        values="0 60 120;-20 60 120;0 60 120" 
+                                        dur="2s" repeatCount="indefinite"/>
+                                </rect>
+                                <rect x="110" y="115" width="20" height="10" fill="#667eea" opacity="0.5">
+                                    <animateTransform attributeName="transform" type="rotate" 
+                                        values="0 120 120;-20 120 120;0 120 120" 
+                                        dur="2s" repeatCount="indefinite"/>
+                                </rect>
+                                <text x="90" y="170" text-anchor="middle" font-size="12" fill="#333">Estiramiento gemelos</text>
+                            </svg>
+                        </div>
+                        <div class="exercise-description">
+                            <h4>Estiramiento de Gemelos</h4>
+                            <p>Reducción de la espasticidad en pantorrillas</p>
+                            <div class="exercise-steps">
+                                <ol>
+                                    <li>De pie frente a una pared</li>
+                                    <li>Pierna adelantada flexionada, trasera estirada</li>
+                                    <li>Talón trasero en contacto con el suelo</li>
+                                    <li>Mantener 30 segundos por pierna</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-visual">
+                        <div class="exercise-animation">
+                            <svg width="180" height="180" viewBox="0 0 180 180">
+                                <!-- Estiramiento de aductores -->
+                                <line x1="90" y1="60" x2="60" y2="120" stroke="#667eea" stroke-width="8" opacity="0.5">
+                                    <animate attributeName="x2" values="60;40;60" dur="3s" repeatCount="indefinite"/>
+                                </line>
+                                <line x1="90" y1="60" x2="120" y2="120" stroke="#667eea" stroke-width="8" opacity="0.5">
+                                    <animate attributeName="x2" values="120;140;120" dur="3s" repeatCount="indefinite"/>
+                                </line>
+                                <circle cx="90" cy="60" r="10" fill="#667eea" opacity="0.5"/>
+                                <text x="90" y="170" text-anchor="middle" font-size="12" fill="#333">Estiramiento aductores</text>
+                            </svg>
+                        </div>
+                        <div class="exercise-description">
+                            <h4>Estiramiento de Aductores</h4>
+                            <p>Apertura de caderas y muslos internos</p>
+                            <div class="exercise-steps">
+                                <ol>
+                                    <li>Sentado, juntar plantas de los pies</li>
+                                    <li>Dejar caer rodillas hacia los lados</li>
+                                    <li>Inclinar tronco hacia adelante suavemente</li>
+                                    <li>Mantener 30 segundos</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-visual">
+                        <div class="exercise-animation">
+                            <svg width="180" height="180" viewBox="0 0 180 180">
+                                <!-- Estiramiento de cuádriceps -->
+                                <line x1="90" y1="60" x2="90" y2="110" stroke="#667eea" stroke-width="8" opacity="0.5"/>
+                                <line x1="90" y1="110" x2="90" y2="140" stroke="#667eea" stroke-width="8" opacity="0.5">
+                                    <animateTransform attributeName="transform" type="rotate" 
+                                        values="0 90 110;90 90 110;0 90 110" 
+                                        dur="3s" repeatCount="indefinite"/>
+                                </line>
+                                <circle cx="90" cy="140" r="6" fill="#667eea" opacity="0.7">
+                                    <animateTransform attributeName="transform" type="translate" 
+                                        values="0,0;-20,-30;0,0" 
+                                        dur="3s" repeatCount="indefinite"/>
+                                </circle>
+                                <text x="90" y="170" text-anchor="middle" font-size="12" fill="#333">Estiramiento cuádriceps</text>
+                            </svg>
+                        </div>
+                        <div class="exercise-description">
+                            <h4>Estiramiento de Cuádriceps</h4>
+                            <p>Parte anterior del muslo</p>
+                            <div class="exercise-steps">
+                                <ol>
+                                    <li>De pie o tumbado de lado</li>
+                                    <li>Flexionar rodilla llevando talón a glúteo</li>
+                                    <li>Sujetar tobillo con la mano</li>
+                                    <li>Mantener rodilla alineada con cadera</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ejercicios de Brazos -->
+                <div class="exercise-category">
+                    <h3>💪 Ejercicios de Brazos</h3>
+                    
+                    <div class="exercise-visual">
+                        <div class="exercise-animation">
+                            <svg width="180" height="180" viewBox="0 0 180 180">
+                                <!-- Brazo estirándose -->
+                                <line x1="60" y1="90" x2="90" y2="90" stroke="#667eea" stroke-width="6" opacity="0.5"/>
+                                <line x1="90" y1="90" x2="120" y2="90" stroke="#667eea" stroke-width="6" opacity="0.5">
+                                    <animate attributeName="x2" values="120;140;120" dur="2s" repeatCount="indefinite"/>
+                                </line>
+                                <!-- Mano -->
+                                <circle cx="120" cy="90" r="8" fill="#667eea" opacity="0.5">
+                                    <animate attributeName="cx" values="120;140;120" dur="2s" repeatCount="indefinite"/>
+                                </circle>
+                                <text x="90" y="170" text-anchor="middle" font-size="12" fill="#333">Estiramiento tríceps</text>
+                            </svg>
+                        </div>
+                        <div class="exercise-description">
+                            <h4>Estiramiento de Tríceps</h4>
+                            <p>Parte posterior del brazo</p>
+                            <div class="exercise-steps">
+                                <ol>
+                                    <li>Elevar brazo por encima de la cabeza</li>
+                                    <li>Flexionar codo llevando mano hacia espalda</li>
+                                    <li>Con otra mano empujar suavemente el codo</li>
+                                    <li>Mantener 30 segundos cada brazo</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-visual">
+                        <div class="exercise-animation">
+                            <svg width="180" height="180" viewBox="0 0 180 180">
+                                <!-- Estiramiento de muñeca -->
+                                <line x1="60" y1="90" x2="120" y2="90" stroke="#667eea" stroke-width="6" opacity="0.5"/>
+                                <!-- Mano flexionándose -->
+                                <rect x="115" y="85" width="30" height="10" fill="#667eea" opacity="0.5">
+                                    <animateTransform attributeName="transform" type="rotate" 
+                                        values="0 120 90;-45 120 90;45 120 90;0 120 90" 
+                                        dur="3s" repeatCount="indefinite"/>
+                                </rect>
+                                <text x="90" y="170" text-anchor="middle" font-size="12" fill="#333">Movilización muñeca</text>
+                            </svg>
+                        </div>
+                        <div class="exercise-description">
+                            <h4>Movilización de Muñeca</h4>
+                            <p>Flexibilidad de muñeca y antebrazo</p>
+                            <div class="exercise-steps">
+                                <ol>
+                                    <li>Extender brazo hacia adelante</li>
+                                    <li>Flexionar muñeca hacia arriba y abajo</li>
+                                    <li>Realizar círculos lentos</li>
+                                    <li>10 repeticiones en cada dirección</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transferencias y Movilidad -->
+                <div class="exercise-category">
+                    <h3>🔄 Transferencias Seguras</h3>
+                    
+                    <div class="exercise-visual">
+                        <div class="exercise-animation">
+                            <svg width="180" height="180" viewBox="0 0 180 180">
+                                <!-- Representación de sentado a de pie -->
+                                <rect x="60" y="100" width="60" height="10" fill="#999" opacity="0.3"/>
+                                <!-- Persona -->
+                                <ellipse cx="90" cy="60" rx="15" ry="20" fill="#667eea" opacity="0.5">
+                                    <animate attributeName="cy" values="80;60;80" dur="3s" repeatCount="indefinite"/>
+                                </ellipse>
+                                <rect x="85" y="70" width="10" height="30" fill="#667eea" opacity="0.5">
+                                    <animate attributeName="height" values="20;30;20" dur="3s" repeatCount="indefinite"/>
+                                    <animate attributeName="y" values="80;70;80" dur="3s" repeatCount="indefinite"/>
+                                </rect>
+                                <text x="90" y="170" text-anchor="middle" font-size="12" fill="#333">Sentado a de pie</text>
+                            </svg>
+                        </div>
+                        <div class="exercise-description">
+                            <h4>De Sentado a De Pie</h4>
+                            <p>Transferencia básica segura</p>
+                            <div class="exercise-steps">
+                                <ol>
+                                    <li>Pies apoyados firmemente, separados ancho de caderas</li>
+                                    <li>Inclinar tronco hacia adelante</li>
+                                    <li>Impulsar desde glúteos y piernas</li>
+                                    <li>Evitar tirar de objetos para levantarse</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-visual">
+                        <div class="exercise-animation">
+                            <svg width="180" height="180" viewBox="0 0 180 180">
+                                <!-- Giro en cama -->
+                                <rect x="40" y="80" width="100" height="20" fill="#999" opacity="0.2"/>
+                                <ellipse cx="90" cy="90" rx="40" ry="15" fill="#667eea" opacity="0.5">
+                                    <animateTransform attributeName="transform" type="rotate" 
+                                        values="0 90 90;90 90 90;0 90 90" 
+                                        dur="4s" repeatCount="indefinite"/>
+                                </ellipse>
+                                <text x="90" y="170" text-anchor="middle" font-size="12" fill="#333">Giro en cama</text>
+                            </svg>
+                        </div>
+                        <div class="exercise-description">
+                            <h4>Giro en la Cama</h4>
+                            <p>Cambio de posición lateral</p>
+                            <div class="exercise-steps">
+                                <ol>
+                                    <li>Flexionar las rodillas</li>
+                                    <li>Girar primero pelvis y piernas</li>
+                                    <li>Luego girar tronco y hombros</li>
+                                    <li>No girar "en bloque"</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-visual">
+                        <div class="exercise-animation">
+                            <svg width="180" height="180" viewBox="0 0 180 180">
+                                <!-- Transferencia a silla de ruedas -->
+                                <circle cx="50" cy="110" r="15" fill="#999" opacity="0.3"/>
+                                <circle cx="130" cy="110" r="15" fill="#999" opacity="0.3"/>
+                                <rect x="40" y="80" width="20" height="30" fill="#999" opacity="0.3"/>
+                                <rect x="120" y="80" width="20" height="30" fill="#999" opacity="0.3"/>
+                                <!-- Persona moviéndose -->
+                                <ellipse cx="50" cy="60" rx="15" ry="20" fill="#667eea" opacity="0.5">
+                                    <animate attributeName="cx" values="50;90;130" dur="3s" repeatCount="indefinite"/>
+                                </ellipse>
+                                <text x="90" y="170" text-anchor="middle" font-size="12" fill="#333">Transferencia lateral</text>
+                            </svg>
+                        </div>
+                        <div class="exercise-description">
+                            <h4>Transferencia a Silla de Ruedas</h4>
+                            <p>Paso seguro entre superficies</p>
+                            <div class="exercise-steps">
+                                <ol>
+                                    <li>Colocar silla en ángulo de 45-90°</li>
+                                    <li>Frenar la silla y retirar reposapies</li>
+                                    <li>Deslizar hacia el borde del asiento</li>
+                                    <li>Pivotar sobre los pies, no sobre espalda</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ejercicios Respiratorios -->
+                <div class="exercise-category">
+                    <h3>🫁 Ejercicios Respiratorios</h3>
+                    
+                    <div class="exercise-visual">
+                        <div class="exercise-animation">
+                            <svg width="180" height="180" viewBox="0 0 180 180">
+                                <!-- Representación del torso y abdomen -->
+                                <ellipse cx="90" cy="90" rx="50" ry="60" fill="#667eea" opacity="0.2">
+                                    <animate attributeName="rx" values="50;60;50" dur="4s" repeatCount="indefinite"/>
+                                    <animate attributeName="ry" values="60;70;60" dur="4s" repeatCount="indefinite"/>
+                                </ellipse>
+                                <!-- Flechas de expansión -->
+                                <path d="M 40 90 L 20 90" stroke="#ff6b6b" stroke-width="2" opacity="0.6">
+                                    <animate attributeName="d" values="M 40 90 L 20 90;M 30 90 L 10 90;M 40 90 L 20 90" dur="4s" repeatCount="indefinite"/>
+                                </path>
+                                <path d="M 140 90 L 160 90" stroke="#ff6b6b" stroke-width="2" opacity="0.6">
+                                    <animate attributeName="d" values="M 140 90 L 160 90;M 150 90 L 170 90;M 140 90 L 160 90" dur="4s" repeatCount="indefinite"/>
+                                </path>
+                                <text x="90" y="170" text-anchor="middle" font-size="12" fill="#333">Respiración abdominal</text>
+                            </svg>
+                        </div>
+                        <div class="exercise-description">
+                            <h4>Respiración Diafragmática</h4>
+                            <p>Reducción del estrés y facilitación de estiramientos</p>
+                            <div class="exercise-steps">
+                                <ol>
+                                    <li>Colocar una mano en el abdomen</li>
+                                    <li>Inspirar lentamente hinchando el abdomen</li>
+                                    <li>Exhalar dejando que el abdomen se hunda</li>
+                                    <li>Repetir 5-10 veces</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-visual">
+                        <div class="exercise-animation">
+                            <svg width="180" height="180" viewBox="0 0 180 180">
+                                <!-- Respiración costal -->
+                                <rect x="60" y="60" width="60" height="60" fill="#667eea" opacity="0.2" rx="10">
+                                    <animate attributeName="width" values="60;80;60" dur="4s" repeatCount="indefinite"/>
+                                    <animate attributeName="x" values="60;50;60" dur="4s" repeatCount="indefinite"/>
+                                </rect>
+                                <!-- Costillas -->
+                                <line x1="60" y1="75" x2="40" y2="75" stroke="#ff6b6b" stroke-width="2" opacity="0.6">
+                                    <animate attributeName="x2" values="40;30;40" dur="4s" repeatCount="indefinite"/>
+                                </line>
+                                <line x1="120" y1="75" x2="140" y2="75" stroke="#ff6b6b" stroke-width="2" opacity="0.6">
+                                    <animate attributeName="x2" values="140;150;140" dur="4s" repeatCount="indefinite"/>
+                                </line>
+                                <text x="90" y="170" text-anchor="middle" font-size="12" fill="#333">Respiración costal</text>
+                            </svg>
+                        </div>
+                        <div class="exercise-description">
+                            <h4>Respiración Costal</h4>
+                            <p>Expansión de la caja torácica</p>
+                            <div class="exercise-steps">
+                                <ol>
+                                    <li>Manos en las costillas laterales</li>
+                                    <li>Inspirar expandiendo las costillas</li>
+                                    <li>Sentir cómo se separan las manos</li>
+                                    <li>Exhalar juntando las costillas</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box" style="margin-top: 20px;">
+                    ⚠️ <strong>IMPORTANTE:</strong> Todos los ejercicios deben ser supervisados por un fisioterapeuta especializado en EM. Realizar en ambiente fresco y evitar la fatiga excesiva.
+                </div>
+            </div>
+
+            <!-- Sección de Evolución -->
+            <div class="content-section" id="history">
+                <h2>Evolución Temporal</h2>
+                
+                <div class="eval-card">
+                    <h3>Histórico de Evaluaciones</h3>
+                    <div style="overflow-x: auto;">
+                        <table class="history-table">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>NRS</th>
+                                    <th>Ashworth</th>
+                                    <th>Espasmos</th>
+                                    <th>TUG (seg)</th>
+                                    <th>Dolor EVA</th>
+                                </tr>
+                            </thead>
+                            <tbody id="historyTableBody">
+                                <tr><td colspan="6" style="text-align: center;">No hay registros históricos</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="eval-card" style="margin-top: 20px;">
+                    <h3>Gráfico de Evolución</h3>
+                    <div class="chart-container">
+                        <canvas id="evolutionChart" width="800" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección de Informe -->
+            <div class="content-section" id="report">
+                <h2>Informe Clínico</h2>
+                
+                <div class="report-section">
+                    <h3>Resumen de Evaluación Actual</h3>
+                    <div id="reportContent">
+                        <p>No hay datos de evaluación disponibles. Complete las evaluaciones para generar el informe.</p>
+                    </div>
+                </div>
+
+                <button class="print-button" onclick="generateReport()">📄 Generar Informe Completo</button>
+                <button class="print-button" onclick="window.print()">🖨️ Imprimir/Guardar PDF</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales
+        let evaluationData = {
+            nrs: 5,
+            ashworth: '0',
+            spasmsFreq: '0',
+            spasmsIntensity: '0',
+            tugTime: null,
+            hrRest: null,
+            hrPost: null,
+            impactScore: 5,
+            painScore: 5,
+            pci: null,
+            avdMobility: 0,
+            avdTransfers: 0,
+            avdToilet: 0,
+            avdDressing: 0,
+            avdTotal: 0,
+            sleepQuality: 0,
+            sleepDisturbance: 0,
+            sleepLatency: 0,
+            sleepHours: null,
+            sleepTotal: 0
+        };
+
+        let historyData = [];
+
+        // Funciones de inicialización
+        function acceptDisclaimer() {
+            document.getElementById('disclaimer').classList.remove('active');
+            document.getElementById('mainContent').classList.add('active');
+        }
+
+        function showSection(section) {
+            // Ocultar todas las secciones
+            document.querySelectorAll('.content-section').forEach(sec => {
+                sec.classList.remove('active');
+            });
+            
+            // Ocultar todos los tabs
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Mostrar sección seleccionada
+            const targetSection = document.getElementById(section);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+            
+            // Activar tab correspondiente
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
+            
+            // Scroll al top para mejor experiencia móvil
+            window.scrollTo(0, 0);
+            document.body.scrollTop = 0;
+            
+            // Si es la sección de historia, actualizar tabla
+            if (section === 'history') {
+                updateHistoryTable();
+                setTimeout(drawChart, 100); // Pequeño delay para iOS
+            }
+        }
+
+        // Prevenir zoom en iOS al hacer doble tap
+        document.addEventListener('touchstart', function(event) {
+            if (event.touches.length > 1) {
+                event.preventDefault();
+            }
+        }, { passive: false });
+        
+        // Mejorar la experiencia táctil
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+
+        // Funciones de actualización de valores
+        function updateNRS() {
+            const value = document.getElementById('nrsScore').value;
+            document.getElementById('nrsValue').textContent = value;
+            evaluationData.nrs = value;
+        }
+
+        function updateImpact() {
+            const value = document.getElementById('impactScore').value;
+            document.getElementById('impactValue').textContent = value;
+            evaluationData.impactScore = value;
+        }
+
+        function updatePain() {
+            const value = document.getElementById('painScore').value;
+            document.getElementById('painValue').textContent = value;
+            evaluationData.painScore = value;
+        }
+
+        // Función para calcular puntuación AVD
+        function calculateAVDScore() {
+            const mobility = parseInt(document.getElementById('avdMobility').value) || 0;
+            const transfers = parseInt(document.getElementById('avdTransfers').value) || 0;
+            const toilet = parseInt(document.getElementById('avdToilet').value) || 0;
+            const dressing = parseInt(document.getElementById('avdDressing').value) || 0;
+            
+            const total = mobility + transfers + toilet + dressing;
+            document.getElementById('avdTotal').textContent = total;
+            
+            evaluationData.avdMobility = mobility;
+            evaluationData.avdTransfers = transfers;
+            evaluationData.avdToilet = toilet;
+            evaluationData.avdDressing = dressing;
+            evaluationData.avdTotal = total;
+        }
+
+        // Función para calcular puntuación del sueño
+        function calculateSleepScore() {
+            const quality = parseInt(document.getElementById('sleepQuality').value) || 0;
+            const disturbance = parseInt(document.getElementById('sleepDisturbance').value) || 0;
+            const latency = parseInt(document.getElementById('sleepLatency').value) || 0;
+            const hours = parseFloat(document.getElementById('sleepHours').value) || 0;
+            
+            let hoursScore = 0;
+            if (hours < 5) hoursScore = 3;
+            else if (hours < 6) hoursScore = 2;
+            else if (hours < 7) hoursScore = 1;
+            
+            const total = quality + disturbance + latency + hoursScore;
+            document.getElementById('sleepTotal').textContent = total;
+            
+            evaluationData.sleepQuality = quality;
+            evaluationData.sleepDisturbance = disturbance;
+            evaluationData.sleepLatency = latency;
+            evaluationData.sleepHours = hours;
+            evaluationData.sleepTotal = total;
+        }
+
+        // Función para calcular PCI
+        function calculatePCI() {
+            const hrRest = parseFloat(document.getElementById('hrRest').value);
+            const hrPost = parseFloat(document.getElementById('hrPost').value);
+            const distance = parseFloat(document.getElementById('distance').value);
+            const tugTime = parseFloat(document.getElementById('tugTime').value);
+            
+            if (!hrRest || !hrPost || !distance || !tugTime) {
+                alert('Por favor, complete todos los campos necesarios');
+                return;
+            }
+            
+            const velocity = distance / tugTime; // m/s
+            const pci = (hrPost - hrRest) / (velocity * 60); // latidos/metro
+            
+            document.getElementById('pciResult').style.display = 'block';
+            document.getElementById('pciValue').textContent = `PCI: ${pci.toFixed(2)} latidos/metro`;
+            
+            let interpretation = '';
+            if (pci < 0.5) {
+                interpretation = 'Eficiencia energética normal';
+            } else if (pci < 1.0) {
+                interpretation = 'Eficiencia energética ligeramente reducida';
+            } else if (pci < 1.5) {
+                interpretation = 'Eficiencia energética moderadamente reducida';
+            } else {
+                interpretation = 'Eficiencia energética severamente reducida';
+            }
+            
+            document.getElementById('pciInterpretation').textContent = interpretation;
+            
+            evaluationData.hrRest = hrRest;
+            evaluationData.hrPost = hrPost;
+            evaluationData.pci = pci;
+        }
+
+        // Función para guardar evaluación
+        function saveEvaluation() {
+            evaluationData.ashworth = document.getElementById('ashworth').value;
+            evaluationData.spasmsFreq = document.getElementById('spasmsFreq').value;
+            evaluationData.spasmsIntensity = document.getElementById('spasmsIntensity').value;
+            evaluationData.tugTime = document.getElementById('tugTime').value;
+            
+            // Guardar en histórico
+            const today = new Date().toLocaleDateString('es-ES');
+            const newEntry = {
+                date: today,
+                ...evaluationData
+            };
+            
+            historyData.push(newEntry);
+            
+            alert('✅ Evaluación guardada correctamente');
+        }
+
+        // Función para guardar calidad de vida
+        function saveQualityOfLife() {
+            // Actualizar todos los valores de calidad de vida
+            calculateAVDScore();
+            calculateSleepScore();
+            
+            const today = new Date().toLocaleDateString('es-ES');
+            const existingEntry = historyData.find(entry => entry.date === today);
+            
+            if (existingEntry) {
+                existingEntry.impactScore = evaluationData.impactScore;
+                existingEntry.painScore = evaluationData.painScore;
+                existingEntry.avdTotal = evaluationData.avdTotal;
+                existingEntry.sleepTotal = evaluationData.sleepTotal;
+            } else {
+                historyData.push({
+                    date: today,
+                    ...evaluationData
+                });
+            }
+            
+            alert('✅ Evaluación de calidad de vida guardada correctamente');
+        }
+
+        // Función para actualizar tabla de historia
+        function updateHistoryTable() {
+            const tbody = document.getElementById('historyTableBody');
+            tbody.innerHTML = '';
+            
+            if (historyData.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">No hay registros históricos</td></tr>';
+                return;
+            }
+            
+            historyData.forEach(entry => {
+                const row = tbody.insertRow();
+                row.innerHTML = `
+                    <td>${entry.date}</td>
+                    <td>${entry.nrs}</td>
+                    <td>${entry.ashworth}</td>
+                    <td>${entry.spasmsFreq}</td>
+                    <td>${entry.tugTime || '-'}</td>
+                    <td>${entry.painScore || '-'}</td>
+                `;
+            });
+        }
+
+        // Función mejorada para dibujar gráfico
+        function drawChart() {
+            const canvas = document.getElementById('evolutionChart');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            const rect = canvas.getBoundingClientRect();
+            
+            // Ajustar el tamaño del canvas
+            canvas.width = rect.width;
+            canvas.height = 300;
+            
+            // Limpiar canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            if (historyData.length < 2) {
+                ctx.font = '14px Arial';
+                ctx.fillStyle = '#666';
+                ctx.textAlign = 'center';
+                ctx.fillText('Se necesitan al menos 2 evaluaciones para mostrar evolución', canvas.width/2, 150);
+                return;
+            }
+            
+            const padding = 50;
+            const graphWidth = canvas.width - (padding * 2);
+            const graphHeight = canvas.height - (padding * 2);
+            
+            // Dibujar ejes
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(padding, padding);
+            ctx.lineTo(padding, canvas.height - padding);
+            ctx.lineTo(canvas.width - padding, canvas.height - padding);
+            ctx.stroke();
+            
+            // Dibujar línea de NRS
+            ctx.strokeStyle = '#667eea';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            
+            const xStep = graphWidth / (historyData.length - 1);
+            
+            historyData.forEach((entry, index) => {
+                const x = padding + (index * xStep);
+                const y = canvas.height - padding - (entry.nrs * graphHeight / 10);
+                
+                if (index === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+                
+                // Punto
+                ctx.fillStyle = '#667eea';
+                ctx.beginPath();
+                ctx.arc(x, y, 5, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                // Valor
+                ctx.fillStyle = '#333';
+                ctx.font = '12px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(entry.nrs, x, y - 10);
+                
+                // Fecha
+                ctx.save();
+                ctx.translate(x, canvas.height - padding + 20);
+                ctx.rotate(-Math.PI/4);
+                ctx.textAlign = 'right';
+                ctx.font = '10px Arial';
+                ctx.fillText(entry.date, 0, 0);
+                ctx.restore();
+            });
+            
+            ctx.strokeStyle = '#667eea';
+            ctx.stroke();
+            
+            // Etiquetas de ejes
+            ctx.fillStyle = '#333';
+            ctx.font = '14px Arial';
+            ctx.textAlign = 'center';
+            
+            // Eje Y
+            ctx.save();
+            ctx.translate(20, canvas.height/2);
+            ctx.rotate(-Math.PI/2);
+            ctx.fillText('NRS Espasticidad', 0, 0);
+            ctx.restore();
+            
+            // Escala Y
+            for (let i = 0; i <= 10; i += 2) {
+                const y = canvas.height - padding - (i * graphHeight / 10);
+                ctx.textAlign = 'right';
+                ctx.fillText(i.toString(), padding - 10, y + 5);
+            }
+        }
+
+        // Función para generar informe
+        function generateReport() {
+            const reportContent = document.getElementById('reportContent');
+            
+            const reportHTML = `
+                <div style="font-family: Arial, sans-serif;">
+                    <h4>Fecha: ${new Date().toLocaleDateString('es-ES')}</h4>
+                    
+                    <h4>Evaluación de Espasticidad</h4>
+                    <ul>
+                        <li><strong>NRS de Espasticidad:</strong> ${evaluationData.nrs}/10</li>
+                        <li><strong>Escala de Ashworth:</strong> ${evaluationData.ashworth}</li>
+                        <li><strong>Frecuencia de Espasmos:</strong> ${evaluationData.spasmsFreq}</li>
+                        <li><strong>Intensidad de Espasmos:</strong> ${evaluationData.spasmsIntensity}</li>
+                        <li><strong>Test TUG:</strong> ${evaluationData.tugTime || 'No evaluado'} segundos</li>
+                    </ul>
+                    
+                    <h4>Gasto Energético</h4>
+                    <ul>
+                        <li><strong>PCI:</strong> ${evaluationData.pci ? evaluationData.pci.toFixed(2) + ' latidos/metro' : 'No evaluado'}</li>
+                        <li><strong>FC Reposo:</strong> ${evaluationData.hrRest || 'No evaluado'} lpm</li>
+                        <li><strong>FC Post-ejercicio:</strong> ${evaluationData.hrPost || 'No evaluado'} lpm</li>
+                    </ul>
+                    
+                    <h4>Calidad de Vida</h4>
+                    <ul>
+                        <li><strong>NRS Impacto percibido:</strong> ${evaluationData.impactScore}/10</li>
+                        <li><strong>Índice de Barthel (AVD):</strong> ${evaluationData.avdTotal}/60 
+                            ${evaluationData.avdTotal <= 15 ? '(Independencia funcional)' : 
+                              evaluationData.avdTotal <= 35 ? '(Dependencia leve-moderada)' : 
+                              '(Dependencia severa)'}</li>
+                        <li><strong>PSQI (Calidad del sueño):</strong> ${evaluationData.sleepTotal}/12 
+                            ${evaluationData.sleepTotal <= 4 ? '(Buena calidad)' : 
+                              evaluationData.sleepTotal <= 8 ? '(Calidad moderada)' : 
+                              '(Mala calidad)'}</li>
+                        <li><strong>Dolor (EVA):</strong> ${evaluationData.painScore}/10</li>
+                    </ul>
+                    
+                    <h4>Evolución</h4>
+                    <p>Total de evaluaciones registradas: ${historyData.length}</p>
+                    ${historyData.length > 1 ? '<p>Tendencia: ' + (historyData[historyData.length-1].nrs < historyData[0].nrs ? '✅ Mejora' : '⚠️ Empeoramiento') + '</p>' : ''}
+                    
+                    <h4>Recomendaciones</h4>
+                    <p>Basado en las evaluaciones realizadas, se recomienda:</p>
+                    <ul>
+                        <li>Continuar con programa de ejercicios específicos para espasticidad</li>
+                        <li>Aplicar crioterapia local antes de los estiramientos</li>
+                        <li>Realizar ejercicios respiratorios 2-3 veces al día</li>
+                        <li>Mantener cambios posturales frecuentes</li>
+                        <li>Evitar factores desencadenantes (estrés, calor, infecciones)</li>
+                    </ul>
+                    
+                    <p style="margin-top: 20px;"><em>Informe generado por SpastiVidad EM PRO - Herramienta de apoyo clínico</em></p>
+                </div>
+            `;
+            
+            reportContent.innerHTML = reportHTML;
+            alert('✅ Informe generado correctamente');
+        }
+
+        // Redimensionar canvas cuando cambie el tamaño de ventana
+        window.addEventListener('resize', function() {
+            if (document.getElementById('history').classList.contains('active')) {
+                drawChart();
+            }
+        });
+    </script>
+</body>
+</html>
